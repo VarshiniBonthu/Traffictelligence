@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Traffic Volume Estimation</title>
+   <style>
+       body {
+           background-image: url("https://spn-sta.spinny.com/blog/20220923145857/traffic-signal-rules.jpg?compress=true&quality=80&w=1200&dpr=1.3");
+           background-size: cover;
+           color: black;
+       }
+
+
+       .login {
+           text-align: center;
+           margin-top: 50px;
+           padding: 20px;
+           background-color: rgba(255, 255, 255, 0.7);
+           border-radius: 10px;
+       }
+
+
+       input[type="number"], select {
+           width: 200px;
+           padding: 5px;
+           margin: 5px;
+       }
+
+
+       button {
+           height: 30px;
+           width: 200px;
+           padding: 10px;
+           font-size: 16px;
+           background-color: #007BFF;
+           color: white;
+           border: none;
+           border-radius: 5px;
+       }
+
+
+       button:hover {
+           background-color: #0056b3;
+       }
+
+
+       label {
+           font-weight: bold;
+       }
+   </style>
+</head>
+
+
+<body>
+   <div class="login">
+       <center>
+           <h1>Traffic Volume Estimation</h1>
+       </center>
+
+
+       <!-- Main Input Form For Receiving Query to ML -->
+       <form action="{{ url_for('predict') }}" method="post">
+           <h1>Please enter the following details</h1>
+
+
+           <label for="holiday">Holiday:</label>
+           <select id="holiday" name="holiday">
+               <option value="7">None</option>
+               <option value="1">Columbus Day</option>
+               <option value="10">Veterans Day</option>
+               <option value="9">Thanksgiving Day</option>
+               <option value="8">Christmas Day</option>
+               <option value="6">New Year's Day</option>
+               <option value="11">Washington's Birthday</option>
+               <option value="5">Memorial Day</option>
+               <option value="2">Independence Day</option>
+               <option value="8">State Fair</option>
+               <option value="3">Labor Day</option>
+               <option value="4">Martin Luther King Jr Day</option>
+           </select><br>
+
+
+           <label for="temp">Temperature (°C):</label>
+           <input type="number" name="temp" placeholder="Temp" required="required" /><br>
+
+
+           <label for="rain">Rain (1 for yes, 0 for no):</label>
+           <input type="number" min="0" max="1" name="rain" placeholder="Rain" required="required" /><br>
+
+
+           <label for="snow">Snow (1 for yes, 0 for no):</label>
+           <input type="number" min="0" max="1" name="snow" placeholder="Snow" required="required" /><br>
+
+
+           <label for="weather">Weather:</label>
+           <select id="weather" name="weather" required="required">
+               <option value="1">Clouds</option>
+               <option value="8">Clear</option>
+               <option value="6">Rain</option>
+               <option value="2">Drizzle</option>
+               <option value="5">Mist</option>
+               <option value="4">Haze</option>
+               <option value="3">Fog</option>
+               <option value="10">Thunderstorm</option>
+               <option value="9">Squall</option>
+               <option value="7">Smoke</option>
+           </select><br>
+
+
+           <label for="year">Year:</label>
+           <input type="number" min="2012" max="2022" name="year" placeholder="Year" required="required" /><br>
+
+
+           <label for="month">Month:</label>
+           <input type="number" min="1" max="12" name="month" placeholder="Month" required="required" /><br>
+
+
+           <label for="day">Day:</label>
+           <input type="number" min="1" max="31" name="day" placeholder="Day" required="required" /><br>
+
+
+           <label for="hours">Hour:</label>
+           <input type="number" min="0" max="24" name="hours" placeholder="Hour" required="required" /><br>
+
+
+           <label for="minutes">Minutes:</label>
+           <input type="number" min="0" max="60" name="minutes" placeholder="Minutes" required="required" /><br>
+
+
+           <label for="seconds">Seconds:</label>
+           <input type="number" min="0" max="60" name="seconds" placeholder="Seconds" required="required" /><br><br>
+
+
+           <button type="submit" class="btn btn-primary btn-block btn-large">Predict</button><br>
+       </form>
+
+
+       <!-- Display Prediction Text -->
+       <br>
+       {{ prediction_text }}
+   </div>
+</body>
+
+
+</html>
+
+
